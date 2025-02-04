@@ -1,77 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/03 12:27:05 by hdargui           #+#    #+#             */
+/*   Updated: 2025/02/04 12:33:44 by hdargui          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include <signal.h>
-// typedef void (*my_signal_handler)(int);
-// #include <unistd.h>
-// void	print_bit(unsigned char octet)
-// {
-//     int i=8;
-//     int bit;
-//     while (i--)
-//     {
-//         bit=(octet >>i &1)+'0';
-//         write(1, &bit, 1);
-//     }
-// }
-// void handler(int i)
-// {
-//     my_signal_handler x;
-// }
-// int main()
-// {
-//     struct sigaction x;
 
-//     x.sa_handler=handler;
-// }
 #include <signal.h>
-#include <stdio.h>
+#include <sys/_types/_pid_t.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-unsigned char received_char = 0;
-int bit_count = 0;
-
-void handle_sigusr1(int sig) {
-    (void)sig;
-    received_char = (received_char << 1) | 1; 
-    bit_count++;
-
-    if (bit_count == 8)
-    { 
-        write(1, &received_char, 1);
-        received_char = 0;
-        bit_count = 0;
+void send_message(pid_t server_pid, const char *message) {
+    int i = 0;
+    while (message[i] != '\0') {
+        unsigned char encrypted_char = message[i];
+        int j = 7;
+        while (j >= 0) {
+            if (encrypted_char & (1 << j)) {
+                kill(server_pid, SIGUSR1);
+            } else {
+                kill(server_pid, SIGUSR2);
+            }
+            usleep(100); 
+            j--;
+        }
+        i++;
     }
 }
 
-void handle_sigusr2(int sig) {
-    (void)sig;
-    received_char = (received_char << 1);
-    bit_count++;
+int main(int arc,char **arv)
+{
 
-    if (bit_count == 8)
-    {  
-        write(1, &received_char, 1);
-        received_char = 0;
-        bit_count = 0;
-    }
-}
+    pid_t pid=atoi(arv[1]);
 
-int main() {
-    printf("Server running with PID: %d\n", getpid());
+    const char *message = arv[2];
 
-    struct sigaction sa1, sa2;
-    sa1.sa_handler = handle_sigusr1;
-    sa2.sa_handler = handle_sigusr2;
-    sigemptyset(&sa1.sa_mask);
-    sigemptyset(&sa2.sa_mask);
-    sa1.sa_flags = 0;
-    sa2.sa_flags = 0;
-    sigaction(SIGUSR1, &sa1, NULL);
-    sigaction(SIGUSR2, &sa2, NULL);
+    send_message(pid, message);
 
-    while (1) {
-    
-         pause();
-    }
-    
     return 0;
 }
