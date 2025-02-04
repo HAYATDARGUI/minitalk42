@@ -6,28 +6,18 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:11 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/04 13:01:20 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/04 13:51:05 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-
-typedef struct s_help{
-    int bit_array[8];
-    int bit_count;
-}   t_help;
+#include "minitalk.h"
 
 t_help heho;
 
 void handler(int n)
 {
-    if (n == SIGUSR1) {
-        heho.bit_array[heho.bit_count] = 1;
-    } else if (n == SIGUSR2) {
-        heho.bit_array[heho.bit_count] = 0;
-    }
+   
+    heho.bit_array[heho.bit_count] = n-30;
 
     heho.bit_count++;
 
@@ -58,7 +48,7 @@ int main()
     sigaction(SIGUSR1, &x, NULL); 
     sigaction(SIGUSR2, &x, NULL);  
 
-    printf("Server running with PID: %d\n", getpid());
+    ft_printf("Server running with PID: %d\n", getpid());
 
     while (1) {
         pause();  
