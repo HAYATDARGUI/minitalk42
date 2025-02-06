@@ -6,11 +6,11 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:05 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 17:06:42 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:50:35 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "./minitalk.h"
 
 void	helpfuction(unsigned char crchar, int power_of_two, pid_t server_pid)
 {
