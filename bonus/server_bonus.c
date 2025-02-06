@@ -6,15 +6,11 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:11 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 17:05:21 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:02:48 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/signal.h>
-#include <unistd.h>
 
 t_help	g_heho;
 
@@ -70,7 +66,7 @@ void	handler(int n, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	struct sigaction x;
+	struct sigaction	x;
 
 	g_heho.bit_count = 0;
 	x.sa_sigaction = handler;
@@ -82,8 +78,6 @@ int	main(void)
 	ft_putnbr(getpid());
 	ft_putchar('\n');
 	while (1)
-	{
 		pause();
-	}
 	return (0);
 }

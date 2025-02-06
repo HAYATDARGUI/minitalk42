@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:05 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 17:50:35 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:03:21 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	main(int arc, char **arv)
 
 	if (arc != 3)
 	{
-		write(2, "error\n",6);
-		return 1;
+		write(2, "error\n", 6);
+		return (1);
 	}
 	pid = atoi(arv[1]);
 	send_message(pid, message);

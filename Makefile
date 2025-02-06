@@ -17,16 +17,16 @@ all:  client server
 
 bonus : server_bonus client_bonus
 
-client: client.o 
+client: ./Mandatory/client.o 
 	$(CC)  $(CFLAGS) $< -o $@
 
-client_bonus: client_bonus.o 
+client_bonus: ./bonus/client_bonus.o 
 	$(CC)  $(CFLAGS) $< -o $@
 
-server_bonus: server_bonus.o
+server_bonus: ./bonus/server_bonus.o
 	$(CC)  $(CFLAGS) $< -o $@
 
-server: server.o
+server: ./Mandatory/server.o
 	$(CC)  $(CFLAGS) $< -o $@
 
 %.o :  %.c  ./Mandatory/minitalk.h

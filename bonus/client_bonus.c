@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:05 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 14:10:13 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:59:50 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	send_message(pid_t server_pid, const char *message)
 {
 	int				i;
 	unsigned char	encrypted_char;
-	int				power_of_two=128;
+	int				power_of_two;
 
+	power_of_two = 128;
 	i = 0;
 	while (message[i] != '\0')
 	{
@@ -48,26 +49,26 @@ void	send_message(pid_t server_pid, const char *message)
 	encrypted_char = '\n';
 	helpfuction(encrypted_char, power_of_two, server_pid);
 }
-void handler1(int n)
+
+void	handler1(int n)
 {
-	(void) n;
-	write(1,"message reseved ✅\n",21);
+	(void)n;
+	write(1, "message reseved ✅\n", 21);
 	exit(0);
 }
 
 int	main(int arc, char **arv)
 {
-	pid_t		pid;
-	const char	*message = arv[2];
-	struct sigaction s;
-	
-	s.sa_handler=handler1;
+	pid_t				pid;
+	struct sigaction	s;
+
+	s.sa_handler = handler1;
 	if (arc != 3)
 	{
-		write(2,"error\n",7);
+		write(2, "error\n", 7);
 	}
 	pid = atoi(arv[1]);
-	sigaction(SIGUSR1,&s,NULL);
-	send_message(pid, message);
+	sigaction(SIGUSR1, &s, NULL);
+	send_message(pid, arv[2]);
 	return (0);
 }

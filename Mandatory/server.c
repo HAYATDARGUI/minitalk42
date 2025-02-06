@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:11 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 17:16:50 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:53:48 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(void)
 	sigemptyset(&x.sa_mask);
 	sigaction(SIGUSR1, &x, NULL);
 	sigaction(SIGUSR2, &x, NULL);
-	write(1, "Server running with PID:", 27);
+	write(1, "Server running with PID: ", 28);
 	ft_putnbr(getpid());
 	ft_putchar('\n');
 	while (1)
