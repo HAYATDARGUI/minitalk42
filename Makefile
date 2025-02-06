@@ -1,34 +1,45 @@
 
-src = client.c server.c
+src = ./Mandatory/client.c ./Mandatory/server.c
+
+srcb = ./bonus/client_bonus.c ./bonus/server_bonus.c
+
 obj = $(src:.c=.o)
 
+objb = $(srcb:.c=.o)
+
+
 CC = gcc
+
 CFLAGS = -Wall -Wextra -Werror
 
 
-PRINTF_DIR = printf
-PRINTF = ./printf/libftprintf.a
+all:  client server
 
+bonus : server_bonus client_bonus
 
-all: $(PRINTF) client server
+client: client.o 
+	$(CC)  $(CFLAGS) $< -o $@
 
+client_bonus: client_bonus.o 
+	$(CC)  $(CFLAGS) $< -o $@
 
-$(PRINTF):
-	@make -C $(PRINTF_DIR)
+server_bonus: server_bonus.o
+	$(CC)  $(CFLAGS) $< -o $@
 
+server: server.o
+	$(CC)  $(CFLAGS) $< -o $@
 
-client: client.o $(PRINTF)
-	$(CC) -o $@ $^ $(PRINTF)
-
-server: server.o $(PRINTF)
-	$(CC) -o $@ $^ $(PRINTF)
-
+%.o :  %.c  ./Mandatory/minitalk.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(obj)
+	rm -f $(objb)
+
 
 fclean: clean
-	@make -C $(PRINTF_DIR) fclean
-	rm -f client server
+	rm -f client server client_bonus server_bonus
 
 re: fclean all
+
+.PHONY: all server client all clean re bonus client_bonus server_bonus

@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   minitalk_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 12:36:49 by hdargui           #+#    #+#             */
-/*   Updated: 2024/11/20 11:59:04 by hdargui          ###   ########.fr       */
+/*   Created: 2025/02/04 13:23:14 by hdargui           #+#    #+#             */
+/*   Updated: 2025/02/06 14:08:34 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	ft_putnbr(int n, int *len)
+# include <signal.h>
+# include <stdlib.h>
+# include <sys/_types/_pid_t.h>
+# include <unistd.h>
+
+typedef struct s_help
 {
-	if (n == -2147483648)
-	{
-		return (ft_putstr("-2147483648", len));
-	}
-	if (n < 0)
-	{
-		ft_putchar('-', len);
-		n = -n;
-	}
-	if (n > 9)
-	{
-		ft_putnbr(n / 10, len);
-		ft_putnbr(n % 10, len);
-	}
-	else
-		ft_putchar(n + '0', len);
-}
+	int	bit_array[8];
+	int	bit_count;
+}		t_help;
+
+#endif
