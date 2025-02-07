@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:11 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 17:53:48 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/07 17:43:34 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_putnbr(int n)
 
 void	handler(int n)
 {
+
 	int	ascii;
 	int	power_of_two;
 	int	i;
