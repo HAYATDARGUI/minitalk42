@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:05 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 17:59:50 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:02:43 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,24 @@ int	main(int arc, char **arv)
 {
 	pid_t				pid;
 	struct sigaction	s;
+	sigset_t			block_mask;
 
 	s.sa_handler = handler1;
+	sigemptyset(&s.sa_mask);
+	s.sa_flags = 0;
+	sigaction(SIGUSR1, &s, NULL);
+	sigfillset(&block_mask);
+	sigdelset(&block_mask, SIGUSR1);
+	sigdelset(&block_mask, SIGUSR2);
+	sigprocmask(SIG_SETMASK, &block_mask, NULL);
 	if (arc != 3)
 	{
 		write(2, "error\n", 7);
+		return (1);
 	}
 	pid = atoi(arv[1]);
-	sigaction(SIGUSR1, &s, NULL);
 	send_message(pid, arv[2]);
+	while (1)
+		pause();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:11 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 18:02:48 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:26:05 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,43 @@ void	ft_putnbr(int n)
 		ft_putchar(n + '0');
 }
 
-void	handler(int n, siginfo_t *info, void *context)
+void	function2(int *ascii)
 {
-	int	ascii;
 	int	power_of_two;
 	int	i;
 
+	power_of_two = 1;
+	i = 7;
+	while (i >= 0)
+	{
+		*ascii += g_heho.bit_array[i] * power_of_two;
+		power_of_two *= 2;
+		i--;
+	}
+	write(1, ascii, 1);
+	g_heho.bit_count = 0;
+}
+
+void	handler(int n, siginfo_t *info, void *context)
+{
+	int	ascii;
+
 	(void)context;
+	ascii = 0;
+	if (g_heho.last_client_pid != info->si_pid)
+	{
+		g_heho.bit_count = 0;
+		g_heho.last_client_pid = info->si_pid;
+	}
 	g_heho.bit_array[g_heho.bit_count] = n - 30;
 	g_heho.bit_count++;
 	ascii = 0;
 	if (g_heho.bit_count == 8)
 	{
-		power_of_two = 1;
-		i = 7;
-		while (i >= 0)
-		{
-			ascii += g_heho.bit_array[i] * power_of_two;
-			power_of_two *= 2;
-			i--;
-		}
-		write(1, &ascii, 1);
-		g_heho.bit_count = 0;
+		function2(&ascii);
 	}
 	if (ascii == 10)
-	{
 		kill(info->si_pid, SIGUSR1);
-	}
 }
 
 int	main(void)

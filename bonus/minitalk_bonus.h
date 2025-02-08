@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:23:14 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/06 18:00:21 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:02:57 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 
 typedef struct s_help
 {
-	int	bit_array[8];
-	int	bit_count;
-}		t_help;
+	int		bit_array[8];
+	int		bit_count;
+	pid_t	last_client_pid;
+}			t_help;
 
 #endif
