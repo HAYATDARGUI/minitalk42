@@ -6,11 +6,38 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:05 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/08 10:38:05 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:33:54 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	ft_atoi(const char *str)
+{
+	int					sign;
+	unsigned long long	res;
+
+	sign = 1;
+	res = 0;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str && *str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - '0');
+		if (res > 9223372036854775807 && sign == 1)
+			return (-1);
+		if (res > 9223372036854775807 && sign == -1)
+			return (0);
+		str++;
+	}
+	return (res * sign);
+}
 
 void	helpfuction(unsigned char crchar, int power_of_two, pid_t server_pid)
 {
@@ -60,7 +87,7 @@ int	main(int arc, char **arv)
 		write(2, "error\n", 6);
 		return (1);
 	}
-	pid = atoi(arv[1]);
+	pid = ft_atoi(arv[1]);
 	send_message(pid, message);
 	return (0);
 }

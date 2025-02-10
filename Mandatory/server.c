@@ -6,7 +6,7 @@
 /*   By: hdargui <hdargui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:27:11 by hdargui           #+#    #+#             */
-/*   Updated: 2025/02/08 13:27:47 by hdargui          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:35:17 by hdargui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	function2(int *ascii)
 void	handler(int n, siginfo_t *info, void *context)
 {
 	int	ascii;
-	int	power_of_two;
-	int	i;
 
 	(void)context;
 	if (g_heho.last_client_pid != info->si_pid)
